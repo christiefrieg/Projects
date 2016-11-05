@@ -90,3 +90,5 @@ C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\zh-Hant\System.Spatial.resour
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\obj\Debug\MyDashboard.csprojResolveAssemblyReference.cache
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\obj\Debug\MyDashboard.dll
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\obj\Debug\MyDashboard.pdb
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\EntityFramework.SqlServer.dll
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\EntityFramework.SqlServer.xml
