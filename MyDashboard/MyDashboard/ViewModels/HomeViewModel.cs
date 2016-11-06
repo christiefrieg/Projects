@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Dashboard.ViewModels
 {
-    public class MainViewModel
+    public class HomeViewModel
     {
     }
 }

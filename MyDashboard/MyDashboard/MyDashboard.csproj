@@ -201,8 +201,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DataServices\FeedDataService.cs" />
+    <Compile Include="DataServices\UserDataService.cs" />
     <Compile Include="Feed.cs">
       <DependentUpon>Portfolio.tt</DependentUpon>
     </Compile>
@@ -233,7 +236,8 @@
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="ViewModels\FeedViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\HomeViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -303,6 +307,10 @@
       <DependentUpon>Portfolio.edmx</DependentUpon>
       <LastGenOutput>Portfolio.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\angular-ui\Controllers\MainController.js" />
+    <Content Include="Scripts\angular-ui\Controllers\LoginController.js" />
+    <Content Include="Scripts\angular-ui\Controllers\FeedController.js" />
+    <Content Include="Scripts\angular-ui\Service\DashboardService.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -319,6 +327,7 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -356,13 +365,14 @@
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Home\Main.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Feeds\ManageFeeds.cshtml" />
-    <Content Include="Views\Account\Account.cshtml" />
+    <Content Include="Views\Feed\ManageFeeds.cshtml" />
+    <Content Include="Views\Account\ManageAccount.cshtml" />
     <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\PartialView\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,1 @@
+﻿var angularDashboardApp = angular.module('Dashboard', ["Dashboard.controllers.FeedController", "Dashboard.controllers.LoginController"]).controller("MainController", MainController);;

@@ -92,3 +92,9 @@ C:\Portfolio\Portfolio\MyDashboard\MyDashboard\obj\Debug\MyDashboard.dll
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\obj\Debug\MyDashboard.pdb
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\EntityFramework.SqlServer.dll
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\EntityFramework.SqlServer.xml
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\LinqKit.dll
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\LinqKit.xml
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.EntityFramework.xml

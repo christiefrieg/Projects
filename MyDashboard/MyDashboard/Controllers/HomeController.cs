@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dashboard.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,9 +11,8 @@ namespace MyDashboard.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Testing 123.";
-
-            return View();
+            var homeViewModel = new HomeViewModel();
+            return View(homeViewModel);
         }
 
         public ActionResult About()
