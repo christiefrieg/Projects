@@ -1,0 +1,15 @@
+﻿@model Dashboard.ViewModels.SpotifyViewModel
+@{
+    Layout = "~/Shared/_Layout.cshtml";
+}
+<div class="ui-widget-content">
+
+    @foreach (var album in Model.NewReleases)
+    {
+        <img src="@album.Image" />
+        <div class="col-xs-4">@album.SpotifyArtist.ArtistName</div>
+        <div class="col-xs-4">@album.AlbumName</div>
+        <div class="col-xs-4">@album.ReleaseDate</div>
+        <div class="col-xs-4">@album.Link</div>
+    }
+</div>

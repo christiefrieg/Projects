@@ -12,6 +12,8 @@ namespace MyDashboard.Controllers
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
+            if (HttpContext.Session["username"] != null)
+                homeViewModel.UserLoggedIn = true;
             return View(homeViewModel);
         }
 
