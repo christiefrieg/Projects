@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="PortfolioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="AlbumID" />
+          </Key>
+          <Property Name="AlbumID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpotifyArtistID" Type="int" />
+          <Property Name="AlbumName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Link" Type="nvarchar" MaxLength="50" />
+          <Property Name="SpotifyID" Type="int" />
+          <Property Name="Image" Type="nvarchar(max)" />
+          <Property Name="ReleaseDate" Type="date" />
+        </EntityType>
         <EntityType Name="Feed">
           <Key>
             <PropertyRef Name="FeedID" />
@@ -14,6 +26,25 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SpotifyArtist">
+          <Key>
+            <PropertyRef Name="SpotifyArtistID" />
+          </Key>
+          <Property Name="SpotifyArtistID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="ArtistName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Track">
+          <Key>
+            <PropertyRef Name="TrackID" />
+          </Key>
+          <Property Name="TrackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AlbumID" Type="int" />
+          <Property Name="SpotifyArtistID" Type="int" />
+          <Property Name="Link" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrackName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PreviewUrl" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -26,6 +57,18 @@
           <Property Name="FullName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Album_SpotifyArtist">
+          <End Role="SpotifyArtist" Type="Self.SpotifyArtist" Multiplicity="0..1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpotifyArtist">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Feed">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Feed" Type="Self.Feed" Multiplicity="*" />
@@ -38,12 +81,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SpotifyArtist_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="SpotifyArtist" Type="Self.SpotifyArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SpotifyArtist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Track_Album">
+          <End Role="Album" Type="Self.Album" Multiplicity="0..1" />
+          <End Role="Track" Type="Self.Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="AlbumID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="AlbumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Track_SpotifyArtist">
+          <End Role="SpotifyArtist" Type="Self.SpotifyArtist" Multiplicity="0..1" />
+          <End Role="Track" Type="Self.Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpotifyArtist">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PortfolioModelStoreContainer">
+          <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Feed" EntityType="Self.Feed" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SpotifyArtist" EntityType="Self.SpotifyArtist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Track" EntityType="Self.Track" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Album_SpotifyArtist" Association="Self.FK_Album_SpotifyArtist">
+            <End Role="SpotifyArtist" EntitySet="SpotifyArtist" />
+            <End Role="Album" EntitySet="Album" />
+          </AssociationSet>
           <AssociationSet Name="fk_Feed" Association="Self.fk_Feed">
             <End Role="User" EntitySet="User" />
             <End Role="Feed" EntitySet="Feed" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SpotifyArtist_User" Association="Self.FK_SpotifyArtist_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SpotifyArtist" EntitySet="SpotifyArtist" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Track_Album" Association="Self.FK_Track_Album">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Track" EntitySet="Track" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Track_SpotifyArtist" Association="Self.FK_Track_SpotifyArtist">
+            <End Role="SpotifyArtist" EntitySet="SpotifyArtist" />
+            <End Role="Track" EntitySet="Track" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -56,6 +154,25 @@
           <AssociationSet Name="fk_Feed" Association="PortfolioModel.fk_Feed">
             <End Role="User" EntitySet="Users" />
             <End Role="Feed" EntitySet="Feeds" />
+          </AssociationSet>
+          <EntitySet Name="SpotifyArtists" EntityType="PortfolioModel.SpotifyArtist" />
+          <AssociationSet Name="FK_SpotifyArtist_User" Association="PortfolioModel.FK_SpotifyArtist_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SpotifyArtist" EntitySet="SpotifyArtists" />
+          </AssociationSet>
+          <EntitySet Name="Albums" EntityType="PortfolioModel.Album" />
+          <EntitySet Name="Tracks" EntityType="PortfolioModel.Track" />
+          <AssociationSet Name="FK_Album_SpotifyArtist" Association="PortfolioModel.FK_Album_SpotifyArtist">
+            <End Role="SpotifyArtist" EntitySet="SpotifyArtists" />
+            <End Role="Album" EntitySet="Albums" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Track_Album" Association="PortfolioModel.FK_Track_Album">
+            <End Role="Album" EntitySet="Albums" />
+            <End Role="Track" EntitySet="Tracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Track_SpotifyArtist" Association="PortfolioModel.FK_Track_SpotifyArtist">
+            <End Role="SpotifyArtist" EntitySet="SpotifyArtists" />
+            <End Role="Track" EntitySet="Tracks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Feed">
@@ -80,6 +197,7 @@
           <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Feeds" Relationship="PortfolioModel.fk_Feed" FromRole="User" ToRole="Feed" />
+          <NavigationProperty Name="SpotifyArtists" Relationship="PortfolioModel.FK_SpotifyArtist_User" FromRole="User" ToRole="SpotifyArtist" />
         </EntityType>
         <Association Name="fk_Feed">
           <End Type="PortfolioModel.User" Role="User" Multiplicity="1" />
@@ -90,6 +208,92 @@
             </Principal>
             <Dependent Role="Feed">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SpotifyArtist">
+          <Key>
+            <PropertyRef Name="SpotifyArtistID" />
+          </Key>
+          <Property Name="SpotifyArtistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="ArtistName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="PortfolioModel.FK_SpotifyArtist_User" FromRole="SpotifyArtist" ToRole="User" />
+          <NavigationProperty Name="Albums" Relationship="PortfolioModel.FK_Album_SpotifyArtist" FromRole="SpotifyArtist" ToRole="Album" />
+          <NavigationProperty Name="Tracks" Relationship="PortfolioModel.FK_Track_SpotifyArtist" FromRole="SpotifyArtist" ToRole="Track" />
+        </EntityType>
+        <Association Name="FK_SpotifyArtist_User">
+          <End Type="PortfolioModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="PortfolioModel.SpotifyArtist" Role="SpotifyArtist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SpotifyArtist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="AlbumID" />
+          </Key>
+          <Property Name="AlbumID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpotifyArtistID" Type="Int32" />
+          <Property Name="AlbumName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SpotifyID" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReleaseDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="SpotifyArtist" Relationship="PortfolioModel.FK_Album_SpotifyArtist" FromRole="Album" ToRole="SpotifyArtist" />
+          <NavigationProperty Name="Tracks" Relationship="PortfolioModel.FK_Track_Album" FromRole="Album" ToRole="Track" />
+        </EntityType>
+        <EntityType Name="Track">
+          <Key>
+            <PropertyRef Name="TrackID" />
+          </Key>
+          <Property Name="TrackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AlbumID" Type="Int32" />
+          <Property Name="SpotifyArtistID" Type="Int32" />
+          <Property Name="Link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrackName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PreviewUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Album" Relationship="PortfolioModel.FK_Track_Album" FromRole="Track" ToRole="Album" />
+          <NavigationProperty Name="SpotifyArtist" Relationship="PortfolioModel.FK_Track_SpotifyArtist" FromRole="Track" ToRole="SpotifyArtist" />
+        </EntityType>
+        <Association Name="FK_Album_SpotifyArtist">
+          <End Type="PortfolioModel.SpotifyArtist" Role="SpotifyArtist" Multiplicity="0..1" />
+          <End Type="PortfolioModel.Album" Role="Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpotifyArtist">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Track_Album">
+          <End Type="PortfolioModel.Album" Role="Album" Multiplicity="0..1" />
+          <End Type="PortfolioModel.Track" Role="Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="AlbumID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="AlbumID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Track_SpotifyArtist">
+          <End Type="PortfolioModel.SpotifyArtist" Role="SpotifyArtist" Multiplicity="0..1" />
+          <End Type="PortfolioModel.Track" Role="Track" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SpotifyArtist">
+              <PropertyRef Name="SpotifyArtistID" />
+            </Principal>
+            <Dependent Role="Track">
+              <PropertyRef Name="SpotifyArtistID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -119,6 +323,40 @@
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SpotifyArtists">
+            <EntityTypeMapping TypeName="PortfolioModel.SpotifyArtist">
+              <MappingFragment StoreEntitySet="SpotifyArtist">
+                <ScalarProperty Name="ArtistName" ColumnName="ArtistName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SpotifyArtistID" ColumnName="SpotifyArtistID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Albums">
+            <EntityTypeMapping TypeName="PortfolioModel.Album">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="SpotifyID" ColumnName="SpotifyID" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="AlbumName" ColumnName="AlbumName" />
+                <ScalarProperty Name="SpotifyArtistID" ColumnName="SpotifyArtistID" />
+                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tracks">
+            <EntityTypeMapping TypeName="PortfolioModel.Track">
+              <MappingFragment StoreEntitySet="Track">
+                <ScalarProperty Name="PreviewUrl" ColumnName="PreviewUrl" />
+                <ScalarProperty Name="TrackName" ColumnName="TrackName" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="SpotifyArtistID" ColumnName="SpotifyArtistID" />
+                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+                <ScalarProperty Name="TrackID" ColumnName="TrackID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

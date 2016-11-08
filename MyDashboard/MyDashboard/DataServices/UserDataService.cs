@@ -33,21 +33,33 @@ namespace Dashboard.DataServices
                     } 
                 }
                 else
-                    return new User();
+                    return null;
             }
         }
 
-        public static void LogInUser(string username, string password)
+        public static bool LogInUser(string username, string password)
         {
-            HttpContext.Current.Session["Username"] = username;
-            HttpContext.Current.Session["Password"] = password;
+            var dUsername = DecryptStringAES(username);
+            var dPassword = DecryptStringAES(password);
+            using(var db = new PortfolioEntities())
+            {
+                var user = db.Users.FirstOrDefault(u => u.Username == dUsername && u.Password == dPassword);
+                if (user != null)
+                {
+                    HttpContext.Current.Session["Username"] = username.Replace(' ', '+');
+                    HttpContext.Current.Session["Password"] = password.Replace(' ', '+');
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
 
         private static string DecryptStringAES(string cipherText)
         {
             var keybytes = Encoding.UTF8.GetBytes("4851745953265874");
             var iv = Encoding.UTF8.GetBytes("4851745953265874");
-
+            cipherText = cipherText.Replace(' ', '+');
             var encrypted = Convert.FromBase64String(cipherText);
             var decriptedFromJavascript = DecryptStringFromBytes(encrypted, keybytes, iv);
             return string.Format(decriptedFromJavascript);

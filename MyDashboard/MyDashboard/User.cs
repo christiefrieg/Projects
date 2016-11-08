@@ -17,6 +17,7 @@ namespace Dashboard
         public User()
         {
             this.Feeds = new HashSet<Feed>();
+            this.SpotifyArtists = new HashSet<SpotifyArtist>();
         }
     
         public int UserID { get; set; }
@@ -27,5 +28,6 @@ namespace Dashboard
         public string Password { get; set; }
     
         public virtual ICollection<Feed> Feeds { get; set; }
+        public virtual ICollection<SpotifyArtist> SpotifyArtists { get; set; }
     }
 }

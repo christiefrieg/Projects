@@ -27,5 +27,8 @@ namespace Dashboard
     
         public virtual DbSet<Feed> Feeds { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<SpotifyArtist> SpotifyArtists { get; set; }
+        public virtual DbSet<Album> Albums { get; set; }
+        public virtual DbSet<Track> Tracks { get; set; }
     }
 }

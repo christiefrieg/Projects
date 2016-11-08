@@ -25,8 +25,10 @@ namespace Dashboard.Controllers
         }
         public ActionResult LogInUser(string username, string password)
         {
-            UserDataService.LogInUser(username, password);
-            return Json("success");
+            if (UserDataService.LogInUser(username, password))
+                return Json("success");
+            else
+                return Json("error");
         }
         [HttpGet]
         public ActionResult GetCurrentUser()

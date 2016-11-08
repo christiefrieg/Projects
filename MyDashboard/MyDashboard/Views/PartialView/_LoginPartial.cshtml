@@ -6,14 +6,14 @@
 
         <fieldset>
             <legend>Log in Form</legend>
-            <div style="float:left">
-                <div style="float:left">
+            <div>
+                <div>
                     <label>Username:</label>
                     <input type="text" class="form-control" ng-model="lc.username" />
                 </div>
-                <div style="float:right">
+                <div>
                     <label>Password:</label>
-                    <input type="text" class="form-control" ng-model="lc.password" />
+                    <input type="password" class="form-control" ng-model="lc.password" />
                 </div>
             </div>
             <input type="button" ng-click="lc.logIn()" value="Log in" />
@@ -23,8 +23,3 @@
         </p>
     </div>
 </div>
-<script>
-    var e1 = angular.element(document.getElementById("loginForm"));
-    var mController = angular.element(document.getElementById("body"));
-    mController.scope().activateView(e1);
-</script>

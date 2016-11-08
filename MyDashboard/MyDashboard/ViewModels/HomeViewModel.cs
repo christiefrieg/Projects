@@ -7,5 +7,6 @@ namespace Dashboard.ViewModels
 {
     public class HomeViewModel
     {
+        public bool UserLoggedIn { get; set; }
     }
 }
