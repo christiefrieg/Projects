@@ -17,12 +17,6 @@ namespace Dashboard.Controllers
             return View(accountView);
         }
 
-        public ActionResult Login(string url)
-        {
-            var loginView = new LoginViewModel();
-            loginView.RedirectUrl = url;
-            return View(loginView);
-        }
         public ActionResult LogInUser(string username, string password)
         {
             if (UserDataService.LogInUser(username, password))

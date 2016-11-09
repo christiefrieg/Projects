@@ -218,8 +218,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Models\AlbumObject.cs" />
     <Compile Include="Models\ArtistObject.cs" />
+    <Compile Include="Models\PartialView.cs" />
+    <Compile Include="Models\SpotifyTokenRequest.cs" />
+    <Compile Include="Models\SpotifyTokenResponse.cs" />
     <Compile Include="Portfolio.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -320,7 +324,8 @@
       <DependentUpon>Portfolio.edmx</DependentUpon>
       <LastGenOutput>Portfolio.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\angular-ui\Controllers\MainController.js" />
+    <Content Include="Scripts\angular-ui\Controllers\DashboardController.js" />
+    <Content Include="Scripts\angular-ui\Controllers\HomeController.js" />
     <Content Include="Scripts\angular-ui\Controllers\LoginController.js" />
     <Content Include="Scripts\angular-ui\Controllers\FeedController.js" />
     <Content Include="Scripts\angular-ui\Service\DashboardService.js" />
@@ -355,7 +360,9 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

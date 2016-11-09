@@ -1,7 +1,6 @@
 ﻿@model Dashboard.ViewModels.LoginViewModel
-
 <div id="loginForm">
-    <div ng-controller="LoginController as lc" ng-init="lc.init(@Model.RedirectUrl)">
+    <div ng-controller="LoginController as lc" ng-init="lc.init('@Model.RedirectUri')">
         <h2>Use a local account to log in.</h2>
 
         <fieldset>

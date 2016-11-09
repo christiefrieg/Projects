@@ -7,6 +7,10 @@ namespace Dashboard.ViewModels
 {
     public class LoginViewModel
     {
-        public string RedirectUrl { get; set; }
+        public LoginViewModel(string uri)
+        {
+            RedirectUri = uri;
+        }
+        public string RedirectUri { get; set; }
     }
 }

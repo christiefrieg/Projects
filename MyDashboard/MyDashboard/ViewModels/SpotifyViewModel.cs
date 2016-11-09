@@ -1,4 +1,5 @@
 ﻿using Dashboard.DataServices;
+using Dashboard.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,14 +7,14 @@ using System.Web;
 
 namespace Dashboard.ViewModels
 {
-    public class SpotifyViewModel
+    public class SpotifyViewModel : PartialView
     {
-        public List<Album> NewReleases
+        public List<Album> NewReleases { get; set; }
+        public void InitializeView(string token)
         {
-            get
-            {
-                return SpotifyDataService.GetNewReleases();
-            }
+            NewReleases = SpotifyDataService.GetNewReleases(token);
+            PartialViewPath = "~/Views/PartialView/_SpotifyPartialView.cshtml";
+            Title = "Spotify";
         }
     }
 }

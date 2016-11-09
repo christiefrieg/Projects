@@ -9,10 +9,12 @@
         <link rel="stylesheet" type="text/css" href="/Content/Site.css">
         <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
         <script src="/Scripts/jquery-1.8.2.min.js" type="text/javascript"></script>
-        <script src="/Scripts/app.js" type="text/javascript"></script>        
         <script src="/Scripts/angular-ui/Controllers/FeedController.js"></script>
         <script src="~/Scripts/angular-ui/Service/DashboardService.js"></script>
         <script src="/Scripts/angular-ui/Controllers/LoginController.js"></script>
+        <script src="/Scripts/angular-ui/Controllers/DashboardController.js"></script>
+        <script src="/Scripts/angular-ui/Controllers/HomeController.js"></script>
+        <script src="/Scripts/app.js" type="text/javascript"></script>        
 
     </head>
 <body id="body" ng-app="Dashboard">
@@ -25,7 +27,7 @@
                 
                 <nav>
                     <ul id="menu">
-                        <li>@Html.ActionLink("Dashboard", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Dashboard", "Dashboard", "Home")</li>
                         <li>@Html.ActionLink("Manage Feeds", "ManageFeeds", "Feed")</li>
                         <li>@Html.ActionLink("My Account", "ManageAccount", "Account")</li>
                     </ul>

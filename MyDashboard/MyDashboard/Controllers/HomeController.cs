@@ -11,17 +11,22 @@ namespace MyDashboard.Controllers
     {
         public ActionResult Index()
         {
+            var encodedUrl = HttpUtility.UrlEncode(Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/Home/Dashboard"); //replace IP with Request.Url.Authority           
             var homeViewModel = new HomeViewModel();
             if (HttpContext.Session["username"] != null)
                 homeViewModel.UserLoggedIn = true;
+            homeViewModel.RedirectUri = encodedUrl;
             return View(homeViewModel);
         }
 
-        public ActionResult About()
+        public ActionResult Dashboard(string code, string state, string error)
         {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
+            var encodedUrl = HttpUtility.UrlEncode(Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/Home/Dashboard");
+            var dashboardVM = new DashboardViewModel(encodedUrl);
+            if (HttpContext.Session["username"] != null)
+                dashboardVM.UserLoggedIn = true;
+            dashboardVM.InitializePanel(code, state, error);
+            return View(dashboardVM);
         }
 
         public ActionResult Contact()

@@ -1,6 +1,19 @@
-﻿@{
-    Layout = "Shared/_Layout.cshtml";
-}
-<div>
-    @{Html.RenderPartial("~/Views/PartialView/_SpotifyPartial.cshtml");}
+﻿@model Dashboard.ViewModels.DashboardViewModel
+<div id="dashboardPanel">
+    <div ng-controller="DashboardController as dc" ng-init="dc.init('@Model.RedirectUri')">
+        <div>
+            @if (Model.PartialViews.Count > 0)
+            {
+                foreach (var panel in Model.PartialViews)
+                {
+                    <div class="ui-tabs-panel">
+                        <div class="ui-accordion-content">
+                            Html.RenderPartial(panel.PartialView, panel);
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
 </div>

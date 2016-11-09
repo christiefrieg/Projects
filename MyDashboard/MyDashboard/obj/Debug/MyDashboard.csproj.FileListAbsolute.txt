@@ -96,3 +96,4 @@ C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.Ent
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\LinqKit.xml
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Portfolio\Portfolio\MyDashboard\MyDashboard\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Portfolio\Portfolio\MyDashboard\MyDashboard\obj\Debug\MyDashboard.csprojResolveAssemblyReference.cache

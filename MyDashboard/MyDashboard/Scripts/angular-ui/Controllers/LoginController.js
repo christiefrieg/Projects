@@ -31,12 +31,8 @@
                 mode: CryptoJS.mode.CBC,
                 padding: CryptoJS.pad.Pkcs7
             });
-            //var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
-            DashboardService.logIn(eUsername.toString(), ePassword.toString()).then(function (response) {
-                if (vm.url != null)
-                    window.open(vm.url,'_self');
-                else
-                    window.open('Home/Index','_self');
+            DashboardService.logIn(eUsername.toString(), ePassword.toString()).then(function (response) {               
+                window.location.href = "https://accounts.spotify.com/authorize?client_id=92388574f7cd4031bb2f8176a47d45e1&response_type=code&redirect_uri=" + vm.url;
             },
             function (error) {
 
