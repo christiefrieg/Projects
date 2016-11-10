@@ -1,1 +1,2 @@
-# Portfolio
+# Dashboard
+This application is a Microsoft .NET MVC application that leverages AngularJS, javascript, SQL server, and C#. Once it is finished, it will be a dashboard that displays information about Spotify that I would want to see. It will also be able to receive info from RSS feeds (configurable) and display it based on the user's preference. It is a work in progress. When it is finished, I'll deploy it to Azure.
